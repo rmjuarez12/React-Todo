@@ -22,6 +22,10 @@ export default class TodoForm extends Component {
     e.preventDefault();
 
     this.props.addTask(this.state.name);
+
+    this.setState({
+      name: ""
+    })
   }
   
   render() {
@@ -33,7 +37,7 @@ export default class TodoForm extends Component {
           <input type="submit" value="Add Todo" />
         </form>
 
-        <button>Clear Completed</button>
+        <button onClick={this.props.removeCompleted}>Clear Completed</button>
       </div>
     )
   }

@@ -9,7 +9,7 @@ export default function TodoList(props) {
     <div>
       <ul>
         {props.todoItems.map((item) => {
-          return <Todo todoItem={item} key={item.id} />
+          return <Todo todoItem={item} key={item.id} toggleCompleted={props.toggleCompleted} />
         })}
       </ul>
     </div>

@@ -5,19 +5,6 @@ import React from 'react';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 
-const dummyData = [
-  {
-    task: "Organize Garage",
-    id: 1528817077286,
-    completed: false,
-  },
-  {
-    task: "Bake Cookies",
-    id: 1528817084358,
-    completed: false,
-  },
-];
-
 class App extends React.Component {
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
@@ -27,10 +14,11 @@ class App extends React.Component {
     super();
 
     this.state = {
-      todoItems: dummyData
+      todoItems: []
     }
   }
 
+  // Function to add a new task
   addTask = (task) => {
     const newTask = {
       task: task,
@@ -43,15 +31,49 @@ class App extends React.Component {
     })
   }
 
+  // Function to remove tasks marked as completed
+  removeCompleted = () => {
+    const removeCompleted = this.state.todoItems.filter((item) => item.completed !== true);
+
+    this.setState({
+      todoItems: removeCompleted
+    })
+  }
+
+  // Function to toggle the task completed state to either true/false
+  toggleCompleted = (id) => {
+    const toggledTask = this.state.todoItems.map((item) => {
+      if(item.id === id) {
+        return {...item, completed: !item.completed}
+      }
+      
+      return item;
+    });
+
+    this.setState({
+      todoItems: toggledTask
+    })
+  }
+
   render() {
-    console.log("rr: todoItems State: App.js:", this.state.todoItems);
+    
+    // Create a variable that will display how many tasks have you completed
+    let pendingTasksCount;
+    if(this.state.todoItems.length > 0) {
+      pendingTasksCount = `${this.state.todoItems.filter((task) => task.completed === true).length} / ${this.state.todoItems.length} Tasks completed.
+                          ${this.state.todoItems.filter((task) => task.completed === true).length === this.state.todoItems.length ? 'All tasks done, hurray!' : ''}`;
+    } else {
+      pendingTasksCount = "Seems we got no tasks, we need to add some!";
+    }
 
     return (
       <div id="App">
-        <h2>Welcome to your Todo App!</h2>
+        <h2>Tasks to finish today!</h2>
 
-        <TodoList todoItems={this.state.todoItems} />
-        <TodoForm addTask={this.addTask} />
+        <p>{pendingTasksCount}</p>
+
+        <TodoList todoItems={this.state.todoItems} toggleCompleted={this.toggleCompleted} />
+        <TodoForm addTask={this.addTask} removeCompleted={this.removeCompleted} />
       </div>
     );
   }
