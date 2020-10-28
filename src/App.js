@@ -1,9 +1,13 @@
 // Import Dependencies
 import React from 'react';
+import { gsap } from "gsap";
 
 // Import Components
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
+
+// Import Assets
+import './assets/App.css';
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
@@ -35,9 +39,16 @@ class App extends React.Component {
   removeCompleted = () => {
     const removeCompleted = this.state.todoItems.filter((item) => item.completed !== true);
 
-    this.setState({
-      todoItems: removeCompleted
-    })
+    // Do a small animation to remove completed
+    gsap.to(".task-list .completed label", {scale: 0.8, duration: 0.5});
+    gsap.to(".task-list .completed label", {x: -200, duration: 0.5, delay: 0.5});
+    gsap.to(".task-list .completed", {opacity: 0, height: 0, delay: 0.5});
+
+    setTimeout(() => {
+      this.setState({
+        todoItems: removeCompleted
+      })
+    }, 1000)
   }
 
   // Function to toggle the task completed state to either true/false
@@ -70,10 +81,11 @@ class App extends React.Component {
       <div id="App">
         <h2>Tasks to finish today!</h2>
 
+        <TodoForm addTask={this.addTask} removeCompleted={this.removeCompleted} />
+
         <p>{pendingTasksCount}</p>
 
         <TodoList todoItems={this.state.todoItems} toggleCompleted={this.toggleCompleted} />
-        <TodoForm addTask={this.addTask} removeCompleted={this.removeCompleted} />
       </div>
     );
   }

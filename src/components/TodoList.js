@@ -7,7 +7,7 @@ import Todo from './Todo';
 export default function TodoList(props) {
   return (
     <div>
-      <ul>
+      <ul className="task-list">
         {props.todoItems.map((item) => {
           return <Todo todoItem={item} key={item.id} toggleCompleted={props.toggleCompleted} />
         })}

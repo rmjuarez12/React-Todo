@@ -34,10 +34,20 @@ export default class TodoForm extends Component {
         <form onSubmit={this.handleSubmit}>
           <input type="text" name="name" placeholder="Add Todo Item..." value={this.state.name} onChange={this.handleChange} />
 
-          <input type="submit" value="Add Todo" />
+          <div className="btns">
+            <input type="submit" value="Add Todo" className="btn" />
+            <button 
+              className="btn" 
+              onClick={(e) => {
+                e.preventDefault();
+                this.props.removeCompleted();
+              }}
+            >
+              Clear Completed
+            </button>
+          </div>
+          
         </form>
-
-        <button onClick={this.props.removeCompleted}>Clear Completed</button>
       </div>
     )
   }
