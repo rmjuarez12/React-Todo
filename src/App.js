@@ -31,6 +31,18 @@ class App extends React.Component {
     }
   }
 
+  addTask = (task) => {
+    const newTask = {
+      task: task,
+      id: Date.now(),
+      completed: false,
+    }
+
+    this.setState({
+      todoItems: [...this.state.todoItems, newTask]
+    })
+  }
+
   render() {
     console.log("rr: todoItems State: App.js:", this.state.todoItems);
 
@@ -39,7 +51,7 @@ class App extends React.Component {
         <h2>Welcome to your Todo App!</h2>
 
         <TodoList todoItems={this.state.todoItems} />
-        <TodoForm />
+        <TodoForm addTask={this.addTask} />
       </div>
     );
   }
