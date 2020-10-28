@@ -1,16 +1,32 @@
 // Import Dependencies
-import React from 'react';
+import React, { Component } from 'react';
 
-export default function TodoForm() {
-  return (
-    <div>
-      <form>
-        <input type="text" name="name" placeholder="Add Todo Item..." />
+export default class TodoForm extends Component {
+  constructor() {
+    super();
 
-        <input type="submit" value="Add Todo" />
-      </form>
+    this.state = {
+      name: ""
+    }
+  }
 
-      <button>Clear Completed</button>
-    </div>
-  )
+  handleChange = (e) => {
+    this.setState({
+      name: e.target.value
+    })
+  }
+  
+  render() {
+    return (
+      <div>
+        <form>
+          <input type="text" name="name" placeholder="Add Todo Item..." value={this.state.name} onChange={this.handleChange} />
+
+          <input type="submit" value="Add Todo" />
+        </form>
+
+        <button>Clear Completed</button>
+      </div>
+    )
+  }
 }

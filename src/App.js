@@ -3,6 +3,7 @@ import React from 'react';
 
 // Import Components
 import TodoForm from './components/TodoForm';
+import TodoList from './components/TodoList';
 
 const dummyData = [
   {
@@ -37,6 +38,7 @@ class App extends React.Component {
       <div id="App">
         <h2>Welcome to your Todo App!</h2>
 
+        <TodoList todoItems={this.state.todoItems} />
         <TodoForm />
       </div>
     );
