@@ -168,11 +168,16 @@ form .btns {
   background: #44bd32;
   font-size: 14px;
   font-family: "Raleway", sans-serif;
-  border: #44bd32 2px solid;
+  border: none;
   width: 100%;
   margin: 0 5px;
   text-transform: uppercase;
   border-radius: 5px;
+}
+
+.btn:disabled {
+  background: #e84118;
+  opacity: 0.4;
 }
 
 form input[type="text"] {
