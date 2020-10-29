@@ -11,7 +11,7 @@ export default function Todo(props) {
   return (
     <li id={`task-${props.todoItem.id}`} className={props.todoItem.completed ? "completed" : "pending"}>
       <label htmlFor={props.todoItem.id}>
-        <input type="checkbox" id={props.todoItem.id} onClick={() => props.toggleCompleted(props.todoItem.id)} /> {props.todoItem.task}
+        <input type="checkbox" id={props.todoItem.id} onClick={() => props.toggleCompleted(props.todoItem.id)} checked={props.todoItem.completed} /> {props.todoItem.task}
       </label>
     </li>
   )

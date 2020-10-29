@@ -18,7 +18,7 @@ class App extends React.Component {
     super();
 
     this.state = {
-      todoItems: []
+      todoItems: JSON.parse(localStorage.getItem('myTasks')) || []
     }
   }
 
@@ -32,7 +32,9 @@ class App extends React.Component {
 
     this.setState({
       todoItems: [...this.state.todoItems, newTask]
-    })
+    });
+
+    localStorage.setItem('myTasks', JSON.stringify([...this.state.todoItems, newTask]));
   }
 
   // Function to remove tasks marked as completed
@@ -47,7 +49,9 @@ class App extends React.Component {
     setTimeout(() => {
       this.setState({
         todoItems: removeCompleted
-      })
+      });
+
+      localStorage.setItem('myTasks', JSON.stringify(removeCompleted));
     }, 1000)
   }
 
@@ -64,10 +68,12 @@ class App extends React.Component {
     this.setState({
       todoItems: toggledTask
     })
+
+    localStorage.setItem('myTasks', JSON.stringify(toggledTask));
   }
 
   render() {
-    
+  
     // Create a variable that will display how many tasks have you completed
     let pendingTasksCount;
     if(this.state.todoItems.length > 0) {
